@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title><=>+</title>
+  <title>Blogging From the IDE - <=>+</title>
   <meta name="author" content="kostja">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ksilin.github.io">
+  <link rel="canonical" href="http://ksilin.github.io/blog/2013/12/10/blogging-from-the-ide">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="<=>+" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/10/blogging-from-the-ide/">Blogging From the IDE</a></h1>
+      <h1 class="entry-title">Blogging From the IDE</h1>
     
     
       <p class="meta">
@@ -94,26 +91,20 @@
   </header>
 
 
-  <div class="entry-content"><p>Octopress beats the other blogging systems I know ( roughly equals 0) because I can blog without leaving my IDE.</p>
+<div class="entry-content"><p>Octopress beats the other blogging systems I know ( roughly equals 0) because I can blog without leaving my IDE.</p>
 
 <p>However the rake tasks do not work properly yet. I tried calling rake (Ctrl+Alt+R) <code>new_post[]</code>, then passing the name of the post as argument in the prompt window, but nothing happens. CLI works fine.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/08/markdown-test/">Markdown Test</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">kostja</span></span>
+
+      
 
 
 
@@ -125,50 +116,32 @@
   
 
 
-<time datetime="2013-12-08T20:21:50+01:00" pubdate data-updated="true">Dec 8<span>th</span>, 2013</time>
-        
-      </p>
+<time datetime="2013-12-10T20:10:06+01:00" pubdate data-updated="true">Dec 10<span>th</span>, 2013</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>The simplest method:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The array is created in full, not auto-extended.</p>
-
-<p>If you simply want to return a default value if you happen to access a non-existing element, use</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">a</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">index</span><span class="p">){</span><span class="s1">&#39;default&#39;</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>or</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">a</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">||</span> <span class="s1">&#39;default&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://stackoverflow.com/questions/5324654/can-i-create-an-array-in-ruby-with-default-values">source</a></p>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ksilin.github.io/blog/2013/12/10/blogging-from-the-ide/" data-via="" data-counturl="http://ksilin.github.io/blog/2013/12/10/blogging-from-the-ide/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/08/markdown-test/" title="Previous Post: markdown test">&laquo; markdown test</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -192,6 +165,7 @@
 
   
 </aside>
+
 
     </div>
   </div>

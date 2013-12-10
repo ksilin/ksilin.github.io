@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[<=>+]]></title>
+  <link href="http://ksilin.github.io/atom.xml" rel="self"/>
+  <link href="http://ksilin.github.io/"/>
+  <updated>2013-12-10T21:28:23+01:00</updated>
+  <id>http://ksilin.github.io/</id>
+  <author>
+    <name><![CDATA[kostja]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Blogging From the IDE]]></title>
+    <link href="http://ksilin.github.io/blog/2013/12/10/blogging-from-the-ide/"/>
+    <updated>2013-12-10T20:10:06+01:00</updated>
+    <id>http://ksilin.github.io/blog/2013/12/10/blogging-from-the-ide</id>
+    <content type="html"><![CDATA[<p>Octopress beats the other blogging systems I know ( roughly equals 0) because I can blog without leaving my IDE.</p>
+
+<p>However the rake tasks do not work properly yet. I tried calling rake (Ctrl+Alt+R) <code>new_post[]</code>, then passing the name of the post as argument in the prompt window, but nothing happens. CLI works fine.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Markdown Test]]></title>
+    <link href="http://ksilin.github.io/blog/2013/12/08/markdown-test/"/>
+    <updated>2013-12-08T20:21:50+01:00</updated>
+    <id>http://ksilin.github.io/blog/2013/12/08/markdown-test</id>
+    <content type="html"><![CDATA[<p>The simplest method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The array is created in full, not auto-extended.</p>
+
+<p>If you simply want to return a default value if you happen to access a non-existing element, use</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">a</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">index</span><span class="p">){</span><span class="s1">&#39;default&#39;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>or</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">a</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">||</span> <span class="s1">&#39;default&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://stackoverflow.com/questions/5324654/can-i-create-an-array-in-ruby-with-default-values">source</a></p>
+]]></content>
+  </entry>
+  
+</feed>
