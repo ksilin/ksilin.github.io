@@ -9,7 +9,7 @@
   <meta name="author" content="kostja">
 
   
-  <meta name="description" content="Instead of registering callbacks usign the all-devouring Kernel#set_trace_func, There is a beter API now: TracePoint. Let&rsquo;s compare (excerpts &hellip;">
+  <meta name="description" content="Instead of registering callbacks usign the all-devouring Kernel#set_trace_func, There is a beter API now: TracePoint. Let&rsquo;s compare these &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +93,7 @@
 
 <div class="entry-content"><p>Instead of registering callbacks usign the all-devouring <a href="http://www.ruby-doc.org/core-2.0.0/Kernel.html#method-i-set_trace_func"><code>Kernel#set_trace_func</code></a>, There is a beter API now: <a href="http://www.ruby-doc.org/core-2.0.0/TracePoint.html"><code>TracePoint</code></a>.</p>
 
-<p>Let&rsquo;s compare (excerpts from rspec):</p>
+<p>Let&rsquo;s compare these excerpts from rspec. The old API looks like this:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -114,7 +114,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The new TracePoint API makes tracing switchable</p>
+<p>The new TracePoint API does not look very different at the first glance. The parameters are now srapped in an object. The first new feature is switchable tracing:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -141,7 +141,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>The traces will not receive events after it is disabled ( duh!).</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -154,7 +154,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>We can enable the tracing for a block of code:</p>
+<p>Let&rsquo;s sugar it up a bit and enable tracing for a block of code:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -165,7 +165,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>We can define an event type to be traced:</p>
+<p>If you had to dif through a trace created by the old API, you might have though &lsquo;do I have to catch EVERYTHING?&rsquo; Now we don&rsquo;t  &ndash; we can define which event types we want to be traced by a tracer:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -176,7 +176,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Existing types are:</p>
+<p>Available types are:</p>
 
 <ul>
 <li><code>:line</code>          execute code on a new line</li>
@@ -194,7 +194,9 @@
 </ul>
 
 
-<p>A cool new feature is access to the return value and the relevant object from the tracer.</p>
+<p>Another cool new feature is access to the return value and the relevant object from the tracer.</p>
+
+<p>// TODO &ndash; better example</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

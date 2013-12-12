@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby 2 | <=>+]]></title>
   <link href="http://ksilin.github.io/blog/categories/ruby-2/atom.xml" rel="self"/>
   <link href="http://ksilin.github.io/"/>
-  <updated>2013-12-12T20:56:03+01:00</updated>
+  <updated>2013-12-12T21:02:50+01:00</updated>
   <id>http://ksilin.github.io/</id>
   <author>
     <name><![CDATA[kostja]]></name>
@@ -20,7 +20,7 @@
     <id>http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2</id>
     <content type="html"><![CDATA[<p>Instead of registering callbacks usign the all-devouring <a href="http://www.ruby-doc.org/core-2.0.0/Kernel.html#method-i-set_trace_func"><code>Kernel#set_trace_func</code></a>, There is a beter API now: <a href="http://www.ruby-doc.org/core-2.0.0/TracePoint.html"><code>TracePoint</code></a>.</p>
 
-<p>Let&rsquo;s compare (excerpts from rspec):</p>
+<p>Let&rsquo;s compare these excerpts from rspec. The old API looks like this:</p>
 
 <p>```ruby</p>
 
@@ -36,7 +36,7 @@
 
 <p>```</p>
 
-<p>The new TracePoint API makes tracing switchable</p>
+<p>The new TracePoint API does not look very different at the first glance. The parameters are now srapped in an object. The first new feature is switchable tracing:</p>
 
 <p>```ruby</p>
 
@@ -55,6 +55,8 @@
 
 <p>```</p>
 
+<p>The traces will not receive events after it is disabled ( duh!).</p>
+
 <p>```ruby</p>
 
 <pre><code>    tracer.disable
@@ -65,7 +67,7 @@
 
 <p>```</p>
 
-<p>We can enable the tracing for a block of code:</p>
+<p>Let&rsquo;s sugar it up a bit and enable tracing for a block of code:</p>
 
 <p>```ruby</p>
 
@@ -75,7 +77,7 @@
 </code></pre>
 
 <p>```
-We can define an event type to be traced:</p>
+If you had to dif through a trace created by the old API, you might have though &lsquo;do I have to catch EVERYTHING?&rsquo; Now we don&rsquo;t  &ndash; we can define which event types we want to be traced by a tracer:</p>
 
 <p>```ruby</p>
 
@@ -86,7 +88,7 @@ We can define an event type to be traced:</p>
 
 <p>```</p>
 
-<p>Existing types are:</p>
+<p>Available types are:</p>
 
 <ul>
 <li><code>:line</code>          execute code on a new line</li>
@@ -104,7 +106,9 @@ We can define an event type to be traced:</p>
 </ul>
 
 
-<p>A cool new feature is access to the return value and the relevant object from the tracer.</p>
+<p>Another cool new feature is access to the return value and the relevant object from the tracer.</p>
+
+<p>// TODO &ndash; better example</p>
 
 <p>```ruby</p>
 
