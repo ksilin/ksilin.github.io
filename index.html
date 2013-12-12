@@ -9,7 +9,7 @@
   <meta name="author" content="kostja">
 
   
-  <meta name="description" content="Octopress beats the other blogging systems I know ( roughly equals 0) because I can blog without leaving my IDE. However the rake tasks do not work &hellip;">
+  <meta name="description" content="Instead of registering callbacks usign the all-devouring Kernel#set_trace_func, There is a beter API now: TracePoint. Let&rsquo;s compare (excerpts &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,154 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/12/tracepoint-debugging-with-ruby-2/">TracePoint Debugging With Ruby 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-12T20:47:28+01:00" pubdate data-updated="true">Dec 12<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Instead of registering callbacks usign the all-devouring <a href="http://www.ruby-doc.org/core-2.0.0/Kernel.html#method-i-set_trace_func"><code>Kernel#set_trace_func</code></a>, There is a beter API now: <a href="http://www.ruby-doc.org/core-2.0.0/TracePoint.html"><code>TracePoint</code></a>.</p>
+
+<p>Let&rsquo;s compare (excerpts from rspec):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">traces</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>    <span class="n">tracer</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="k">do</span> <span class="o">|</span><span class="n">event</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="nb">binding</span><span class="p">,</span> <span class="n">klass</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">traces</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">event</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">klass</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">set_trace_func</span> <span class="n">tracer</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">expect</span><span class="p">(</span><span class="n">traces</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_at_least</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The new TracePoint API makes tracing switchable</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">tracer</span> <span class="o">=</span> <span class="no">TracePoint</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">tp</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">traces</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">tp</span><span class="o">.</span><span class="n">event</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="no">File</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">,</span>
+</span><span class='line'><span class="s2">     </span><span class="si">#{</span><span class="n">tp</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">tp</span><span class="o">.</span><span class="n">defined_class</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">tp</span><span class="o">.</span><span class="n">method_id</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">tracer</span><span class="o">.</span><span class="n">enable</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">gimme</span><span class="p">;</span> <span class="s1">&#39;bam&#39;</span><span class="p">;</span> <span class="k">end</span>
+</span><span class='line'>    <span class="n">tracer</span><span class="o">.</span><span class="n">disable</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># 1 item for a c_call, another 1 for the c_return</span>
+</span><span class='line'>    <span class="n">expect</span><span class="p">(</span><span class="n">traces</span><span class="o">.</span><span class="n">grep</span> <span class="sr">/singleton_method_added/</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">tracer</span><span class="o">.</span><span class="n">disable</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">gimme</span><span class="p">;</span> <span class="s1">&#39;bam&#39;</span><span class="p">;</span> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">expect</span><span class="p">(</span><span class="n">traces</span><span class="o">.</span><span class="n">grep</span> <span class="sr">/singleton_method_added/</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_empty</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can enable the tracing for a block of code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">tracer</span><span class="o">.</span><span class="n">enable</span> <span class="k">do</span>
+</span><span class='line'>           <span class="mi">10</span><span class="o">.</span><span class="n">times</span><span class="p">{</span> <span class="nb">p</span> <span class="s1">&#39;Nananananananana Leader!&#39;</span><span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can define an event type to be traced:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">tracers</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>    <span class="n">tracers</span> <span class="o">&lt;&lt;</span> <span class="no">TracePoint</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:c_call</span><span class="p">,</span> <span class="ss">:c_return</span><span class="p">){</span> <span class="o">|</span><span class="n">tp</span><span class="o">|</span> <span class="s2">&quot;C stuff&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">enable</span>
+</span><span class='line'>    <span class="n">tracers</span> <span class="o">&lt;&lt;</span> <span class="no">TracePoint</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:call</span><span class="p">,</span> <span class="ss">:return</span><span class="p">){</span> <span class="o">|</span><span class="n">tp</span><span class="o">|</span> <span class="s2">&quot;Ruby stuff&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">enable</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Existing types are:</p>
+
+<ul>
+<li><code>:line</code>          execute code on a new line</li>
+<li><code>:class</code>         start a class or module definition</li>
+<li><code>:end</code>           finish a class or module definition</li>
+<li><code>:call</code>          call a Ruby method</li>
+<li><code>:return</code>        return from a Ruby method</li>
+<li><code>:c_call</code>        call a C-language routine</li>
+<li><code>:c_return</code>      return from a C-language routine</li>
+<li><code>:raise</code>         raise an exception</li>
+<li><code>:b_call</code>        event hook at block entry</li>
+<li><code>:b_return</code>      event hook at block ending</li>
+<li><code>:thread_begin</code>  event hook at thread beginning</li>
+<li><code>:thread_end</code>    event hook at thread ending</li>
+</ul>
+
+
+<p>A cool new feature is access to the return value and the relevant object from the tracer.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">traceReturnValues</span> <span class="o">=</span> <span class="no">TracePoint</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:return</span><span class="p">){</span> <span class="o">|</span><span class="n">tp</span><span class="o">|</span> <span class="nb">p</span> <span class="n">tp</span><span class="o">.</span><span class="n">return_value</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">traceSelf</span> <span class="o">=</span> <span class="no">TracePoint</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:return</span><span class="p">){</span> <span class="o">|</span><span class="n">tp</span><span class="o">|</span> <span class="nb">p</span> <span class="n">tp</span><span class="o">.</span><span class="n">self</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://www.youtube.com/watch?v=V_dZQ6AeZDE">source</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -174,6 +322,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/12/tracepoint-debugging-with-ruby-2/">TracePoint Debugging With Ruby 2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/12/10/blogging-from-the-ide/">Blogging From the IDE</a>

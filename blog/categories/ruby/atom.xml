@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | <=>+]]></title>
+  <link href="http://ksilin.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://ksilin.github.io/"/>
+  <updated>2013-12-12T20:56:03+01:00</updated>
+  <id>http://ksilin.github.io/</id>
+  <author>
+    <name><![CDATA[kostja]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[TracePoint Debugging With Ruby 2]]></title>
+    <link href="http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2/"/>
+    <updated>2013-12-12T20:47:28+01:00</updated>
+    <id>http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2</id>
+    <content type="html"><![CDATA[<p>Instead of registering callbacks usign the all-devouring <a href="http://www.ruby-doc.org/core-2.0.0/Kernel.html#method-i-set_trace_func"><code>Kernel#set_trace_func</code></a>, There is a beter API now: <a href="http://www.ruby-doc.org/core-2.0.0/TracePoint.html"><code>TracePoint</code></a>.</p>
+
+<p>Let&rsquo;s compare (excerpts from rspec):</p>
+
+<p>```ruby</p>
+
+<pre><code>    traces = []
+    tracer = lambda do |event, file, line, id, binding, klass|
+      traces &lt;&lt; "#{event}, #{file}, #{line}, #{klass}"
+    end
+
+    set_trace_func tracer
+
+    expect(traces).to have_at_least(100).items
+</code></pre>
+
+<p>```</p>
+
+<p>The new TracePoint API makes tracing switchable</p>
+
+<p>```ruby</p>
+
+<pre><code>    tracer = TracePoint.new do |tp|
+    traces &lt;&lt; "#{tp.event}, #{File.basename(tp.path)},
+     #{tp.lineno}, #{tp.defined_class}, #{tp.method_id}"
+    end
+
+    tracer.enable
+    def gimme; 'bam'; end
+    tracer.disable
+
+    # 1 item for a c_call, another 1 for the c_return
+    expect(traces.grep /singleton_method_added/).to have(2).items
+</code></pre>
+
+<p>```</p>
+
+<p>```ruby</p>
+
+<pre><code>    tracer.disable
+    def gimme; 'bam'; end
+
+    expect(traces.grep /singleton_method_added/).to be_empty
+</code></pre>
+
+<p>```</p>
+
+<p>We can enable the tracing for a block of code:</p>
+
+<p>```ruby</p>
+
+<pre><code>    tracer.enable do
+           10.times{ p 'Nananananananana Leader!'}
+    end
+</code></pre>
+
+<p>```
+We can define an event type to be traced:</p>
+
+<p>```ruby</p>
+
+<pre><code>    tracers = []
+    tracers &lt;&lt; TracePoint.new(:c_call, :c_return){ |tp| "C stuff"}.enable
+    tracers &lt;&lt; TracePoint.new(:call, :return){ |tp| "Ruby stuff"}.enable
+</code></pre>
+
+<p>```</p>
+
+<p>Existing types are:</p>
+
+<ul>
+<li><code>:line</code>          execute code on a new line</li>
+<li><code>:class</code>         start a class or module definition</li>
+<li><code>:end</code>           finish a class or module definition</li>
+<li><code>:call</code>          call a Ruby method</li>
+<li><code>:return</code>        return from a Ruby method</li>
+<li><code>:c_call</code>        call a C-language routine</li>
+<li><code>:c_return</code>      return from a C-language routine</li>
+<li><code>:raise</code>         raise an exception</li>
+<li><code>:b_call</code>        event hook at block entry</li>
+<li><code>:b_return</code>      event hook at block ending</li>
+<li><code>:thread_begin</code>  event hook at thread beginning</li>
+<li><code>:thread_end</code>    event hook at thread ending</li>
+</ul>
+
+
+<p>A cool new feature is access to the return value and the relevant object from the tracer.</p>
+
+<p>```ruby</p>
+
+<pre><code>    traceReturnValues = TracePoint.new(:return){ |tp| p tp.return_value }
+    traceSelf = TracePoint.new(:return){ |tp| p tp.self }
+</code></pre>
+
+<p>```
+<a href="https://www.youtube.com/watch?v=V_dZQ6AeZDE">source</a></p>
+]]></content>
+  </entry>
+  
+</feed>

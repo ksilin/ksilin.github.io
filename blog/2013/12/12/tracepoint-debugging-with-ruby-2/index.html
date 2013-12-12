@@ -1,24 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[<=>+]]></title>
-  <link href="http://ksilin.github.io/atom.xml" rel="self"/>
-  <link href="http://ksilin.github.io/"/>
-  <updated>2013-12-12T20:56:03+01:00</updated>
-  <id>http://ksilin.github.io/</id>
-  <author>
-    <name><![CDATA[kostja]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TracePoint Debugging With Ruby 2 - <=>+</title>
+  <meta name="author" content="kostja">
 
   
-  <entry>
-    <title type="html"><![CDATA[TracePoint Debugging With Ruby 2]]></title>
-    <link href="http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2/"/>
-    <updated>2013-12-12T20:47:28+01:00</updated>
-    <id>http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2</id>
-    <content type="html"><![CDATA[<p>Instead of registering callbacks usign the all-devouring <a href="http://www.ruby-doc.org/core-2.0.0/Kernel.html#method-i-set_trace_func"><code>Kernel#set_trace_func</code></a>, There is a beter API now: <a href="http://www.ruby-doc.org/core-2.0.0/TracePoint.html"><code>TracePoint</code></a>.</p>
+  <meta name="description" content="Instead of registering callbacks usign the all-devouring Kernel#set_trace_func, There is a beter API now: TracePoint. Let&rsquo;s compare (excerpts &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="<=>+" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/"><=>+</a></h1>
+  
+    <h2>at least one spaceship</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ksilin.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">TracePoint Debugging With Ruby 2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-12T20:47:28+01:00" pubdate data-updated="true">Dec 12<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Instead of registering callbacks usign the all-devouring <a href="http://www.ruby-doc.org/core-2.0.0/Kernel.html#method-i-set_trace_func"><code>Kernel#set_trace_func</code></a>, There is a beter API now: <a href="http://www.ruby-doc.org/core-2.0.0/TracePoint.html"><code>TracePoint</code></a>.</p>
 
 <p>Let&rsquo;s compare (excerpts from rspec):</p>
 
@@ -131,50 +204,118 @@
 
 
 <p><a href="https://www.youtube.com/watch?v=V_dZQ6AeZDE">source</a></p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Blogging From the IDE]]></title>
-    <link href="http://ksilin.github.io/blog/2013/12/10/blogging-from-the-ide/"/>
-    <updated>2013-12-10T20:10:06+01:00</updated>
-    <id>http://ksilin.github.io/blog/2013/12/10/blogging-from-the-ide</id>
-    <content type="html"><![CDATA[<p>Octopress beats the other blogging systems I know ( roughly equals 0) because I can blog without leaving my IDE.</p>
 
-<p>However the rake tasks do not work properly yet. I tried calling rake (Ctrl+Alt+R) <code>new_post[]</code>, then passing the name of the post as argument in the prompt window, but nothing happens. CLI works fine.</p>
-]]></content>
-  </entry>
+<span class="byline author vcard">Posted by <span class="fn">kostja</span></span>
+
+      
+
+
+
+
+
+
+
+
   
-  <entry>
-    <title type="html"><![CDATA[Markdown Test]]></title>
-    <link href="http://ksilin.github.io/blog/2013/12/08/markdown-test/"/>
-    <updated>2013-12-08T20:21:50+01:00</updated>
-    <id>http://ksilin.github.io/blog/2013/12/08/markdown-test</id>
-    <content type="html"><![CDATA[<p>The simplest method:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The array is created in full, not auto-extended.</p>
+<time datetime="2013-12-12T20:47:28+01:00" pubdate data-updated="true">Dec 12<span>th</span>, 2013</time>
+      
 
-<p>If you simply want to return a default value if you happen to access a non-existing element, use</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">a</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">index</span><span class="p">){</span><span class="s1">&#39;default&#39;</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>or</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>    <span class="n">a</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">||</span> <span class="s1">&#39;default&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://stackoverflow.com/questions/5324654/can-i-create-an-array-in-ruby-with-default-values">source</a></p>
-]]></content>
-  </entry>
+<span class="categories">
   
-</feed>
+    <a class='category' href='/blog/categories/debugging/'>debugging</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/ruby-2/'>ruby 2</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2/" data-via="" data-counturl="http://ksilin.github.io/blog/2013/12/12/tracepoint-debugging-with-ruby-2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/10/blogging-from-the-ide/" title="Previous Post: blogging from the IDE">&laquo; blogging from the IDE</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/12/tracepoint-debugging-with-ruby-2/">TracePoint Debugging With Ruby 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/10/blogging-from-the-ide/">Blogging From the IDE</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/08/markdown-test/">Markdown Test</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - kostja -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
